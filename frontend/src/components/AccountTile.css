@@ -1,0 +1,17 @@
+.account-tile-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.account-tile{
+    border-radius: 0.7rem !important;
+    border: 1em solid rgba(71, 70, 70, 0.123);
+    z-index: 2;
+}
+
+.account-cash {
+    display: flex;
+    font-size: large;
+    align-items: center;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,23 @@
+.accounts-grid {
+    grid-area: acc;
+}
+
+.accounts-card{
+    position: relative;
+    outline: #FF9997 solid 0.05rem;
+    border-radius: 0.5rem !important;
+}
+
+.accounts-title-grid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accounts-tiles-grid{
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+}

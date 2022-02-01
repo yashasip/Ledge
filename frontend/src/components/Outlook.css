@@ -1,0 +1,79 @@
+.outlook-grid{
+    grid-area: tk;
+}
+
+.outlook-card{
+    outline: #8AEC9F solid 0.05rem;
+    z-index: 1;
+    border-radius: 0.5rem !important;
+}
+
+.outlook-title-grid {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.outlook-tiles-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: 1fr 1fr 2fr;
+}
+
+/* Total Balance */
+
+.total-balance-body-grid{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 
+    "ti lo"
+    "ba lo";
+    row-gap: 1em;
+    justify-items: first baseline;
+}
+
+.money-logo{
+    grid-area: lo;
+    height: 50px;
+    object-fit: contain;
+    background-size: 100%;
+    align-self: center;
+}
+
+.total-balance{
+    grid-area: ba;
+    justify-content: center;
+    font-size: xx-large;
+}
+
+/* Budget  */
+.budget-body-grid{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.budget-header{
+    display: grid;
+    row-gap: 0.4em;
+}
+
+.budget-name{
+    display: flex;
+    column-gap: 0.4em;
+    align-items: center;
+}
+
+.indicator{
+    height: 1em;
+    width: 1em;
+    border-radius: 0.25em;
+    background-color: #62F163;
+}
+
+.budget-graph-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

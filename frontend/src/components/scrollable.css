@@ -1,0 +1,16 @@
+.scrollable {
+    max-height: 20vh;
+    overflow-y: auto;
+}
+
+.all-transactions-scrollable{
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.accounts-scrollable{
+    max-height: 20vh;
+    overflow-y: auto;
+}
+
+

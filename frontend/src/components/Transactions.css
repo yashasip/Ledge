@@ -1,0 +1,28 @@
+.transactions-grid{
+    grid-area: tr;
+}
+
+.transactions-card {
+    position: relative;
+    outline: rgba(85, 193, 255, 0.938) solid 0.05rem;
+    border-radius: 0.5rem !important;
+    overflow-y: hidden;
+}
+
+.transactions-title-grid {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.transactions-tiles-grid {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+}
+
+.all-transactions{
+    display: flex;
+    position: relative;
+    padding-bottom: 0.5rem;
+    justify-content: space-evenly;
+}

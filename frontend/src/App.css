@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans';
+}
+
+body{
+    background-color: #f8f9fa;
+
+}
+::-webkit-scrollbar {
+    width: 0.3rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a181827;
+    border-radius: 30%;
+    padding-right: 0.2rem;
+}
+
