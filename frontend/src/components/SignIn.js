@@ -9,49 +9,59 @@ import { authenticationHandle } from "./state";
 import "./SignIn.css";
 
 function LoginForm() {
-    const dispatch = useDispatch();
-    const { login } = bindActionCreators(authenticationHandle, dispatch);
+  const dispatch = useDispatch();
+  const { login } = bindActionCreators(authenticationHandle, dispatch);
 
-    const [credentials, setCredentials] = useState({
-      username: "",
-      password: "",
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
+  // let navigator = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://127.0.0.1:8000/api/User/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: credentials.username,
+        password: credentials.password,
+      }),
     });
-    // let navigator = useNavigate();
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      const response = await fetch("http://127.0.0.1:8000/api/User/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: credentials.username,
-          password: credentials.password,
-        }),
-      });
-      const json = await response.json();
-      console.log(json);
-      if (json.status === "success") {
-        localStorage.setItem("LedgeSessionToken", json.token);
-        login(true);
-        console.log("success");
-      } else {
-        console.log("failure");
-      }
-    };
+    const json = await response.json();
+    console.log(json);
+    if (json.status === "success") {
+      localStorage.setItem("LedgeSessionToken", json.token);
+      login(true);
+      console.log("success");
+    } else {
+      console.log("failure");
+    }
+  };
 
-    const onChange = (e) => {
-      setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
   return (
     <Form className="tab-form-grid" onSubmit={handleLogin}>
       <Form.Group id="user-email" className="mb-3 spread-wide">
         <Form.Label>Username</Form.Label>
-        <Form.Control type="text" name="username" onChange={onChange} placeholder="Enter username" />
+        <Form.Control
+          type="text"
+          name="username"
+          onChange={onChange}
+          placeholder="Enter username"
+        />
       </Form.Group>
       <Form.Group id="user-password" className="mb-3 spread-wide">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" onChange={onChange} placeholder="Enter password" />
+        <Form.Control
+          type="password"
+          name="password"
+          onChange={onChange}
+          placeholder="Enter password"
+        />
       </Form.Group>
       <Button
         variant="outline-dark"
@@ -96,7 +106,7 @@ function SignUpForm() {
     console.log(json);
     if (json.status === "success") {
       localStorage.setItem("LedgeSessionToken", json.token);
-      login(true)
+      login(true);
       console.log("success");
     } else {
       console.log("failure");
@@ -169,11 +179,7 @@ function SignUpForm() {
           placeholder="Re-enter Password"
         />
       </Form.Group>
-      <Button
-        variant="outline-dark"
-        className="tab-button"
-        type="submit"
-      >
+      <Button variant="outline-dark" className="tab-button" type="submit">
         Sign Up
       </Button>
     </Form>

@@ -1,30 +1,23 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { useState } from "react";
+
 
 import "./AccountTile.css";
 
-function Tile() {
-  const [account, setAccount] = useState({
-    Name: "Account",
-    Balance: "1,000",
-    Type: "Personal",
-    Currency: "₹",
-  });
-
+function Tile(props) {
   return (
     <div>
       <Card className="account-tile">
         <Card.Body className="account-tile-grid">
           <div>
             <Card.Title>
-              {account.Name} <label></label>
+              <label>{props.account.account_name} </label>
             </Card.Title>
-            <Card.Subtitle>{account.Type} </Card.Subtitle>
+            <Card.Subtitle>{props.account.account_type} </Card.Subtitle>
           </div>
           <Card.Text className="account-cash">
-            {account.Currency}
-            {account.Balance}
+            {props.account.currency_symbol}
+            {props.account.balance}
           </Card.Text>
         </Card.Body>
       </Card>

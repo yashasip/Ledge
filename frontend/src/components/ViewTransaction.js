@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "./Popup.css";
 
+
 function ViewTransaction(props) {
   return props.viewTransactionTrigger ? (
     <div className="popup">
@@ -14,6 +15,7 @@ function ViewTransaction(props) {
         </Button>
         All Transactions
       </div>
+
     </div>
   ) : (
     ""

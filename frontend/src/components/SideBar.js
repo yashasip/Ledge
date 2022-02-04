@@ -38,9 +38,9 @@ function SideBar() {
           </i>
           <NewBudget newBudgetTrigger={ newBudget }
             newBudgetFormTrigger={newBudgetForm} />
-          <i className="sidebar-item">
+          {/* <i className="sidebar-item">
             <HiCurrencyRupee />
-          </i>
+          </i> */}
           <i className="sidebar-item" onClick={()=>login(false)}>
             <AiOutlineLogin />
           </i>

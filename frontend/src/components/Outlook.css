@@ -18,7 +18,8 @@
 .outlook-tiles-grid {
     display: grid;
     gap: 1rem;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr 2fr; */
 }
 
 /* Total Balance */
@@ -45,7 +46,7 @@
 .total-balance{
     grid-area: ba;
     justify-content: center;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 /* Budget  */

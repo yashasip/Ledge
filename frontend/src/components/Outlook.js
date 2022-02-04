@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import BudgetGraph from "./BudgetGraph";
 import TrackGraph from "./TrackGraph";
@@ -8,6 +8,7 @@ import TrackGraph from "./TrackGraph";
 import "./Outlook.css";
 
 import moneyLogo from "./wallet-logo.png";
+import AccountContext from "../context/Account/AccountContext";
 
 function Outlook() {
   return (
@@ -19,12 +20,12 @@ function Outlook() {
           <div className="outlook-tiles-grid">
             <BalanceCard />
             <Budget />
-            <Card>
+            {/* <Card>
               <Card.Body>
                 <Card.Title>Track</Card.Title>
                 <Card.Img></Card.Img>
               </Card.Body>
-            </Card>
+            </Card> */}
           </div>
         </Card.Body>
       </Card>
@@ -36,10 +37,15 @@ function Outlook() {
 export default Outlook;
 
 export function BalanceCard() {
-  const [Balance, setBalance] = useState({
-    currency: "₹",
-    totalBalance: "9,000",
-  });
+  const [totalBalance, setTotalBalance] = useState(0);
+  const accountContext = useContext(AccountContext)
+  useEffect(() => {
+    setTotalBalance(accountContext.accounts.reduce(function (acc, curr) {
+      acc = acc + curr.balance;
+      return acc;
+    }, 0))
+  }, [accountContext.accounts]);
+  
 
   return (
     <div>
@@ -47,8 +53,7 @@ export function BalanceCard() {
         <Card.Body className="total-balance-body-grid total-balance-body">
           <Card.Title>Total Balance</Card.Title>
           <Card.Subtitle className="total-balance">
-            {Balance.currency}
-            {Balance.totalBalance}
+            ₹ {totalBalance}
           </Card.Subtitle>
           <Card.Img src={moneyLogo} className="money-logo" />
         </Card.Body>

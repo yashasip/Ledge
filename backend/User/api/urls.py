@@ -2,7 +2,7 @@ from django.urls import path
 
 from User.api.views import (
     register_user_view,
-    login_user_view
+    login_user_view,
     )
 
 app_name = 'User'

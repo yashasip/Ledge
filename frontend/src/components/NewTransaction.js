@@ -7,8 +7,8 @@ import NewTransactionForm from "./NewTransactionForm";
 import "./NewTransaction.css";
 
 function NewTransaction() {
+  
   const [newTransaction, openTransactionForm] = useState(false);
-
   return (
     <div>
       <Button

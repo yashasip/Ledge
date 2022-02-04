@@ -24,4 +24,9 @@ urlpatterns = [
 # REST framework urls 
 urlpatterns +=[
     path('api/User/', include('User.api.urls', 'user_api')),
+    path('api/Account/', include('Account.api.urls', 'account_api')),
+    path('api/Transaction/', include('Transaction.api.urls', 'transaction_api')),
+    path('api/Category/', include('Category.api.urls', 'category_api')),
+    path('api/Budget/', include('Budget.api.urls', 'budget_api')),  
+    path('api/currency/', include('currency.api.urls', 'currency_api')),  
 ]
