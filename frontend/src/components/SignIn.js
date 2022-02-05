@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { Card, Tabs, Tab, Form, Button, Fade } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { authenticationHandle } from "./state";
 
+import LoginContext from "../context/Login/LoginContext";
+import AccountContext from "../context/Account/AccountContext";
+import CategoryContext from "../context/Category/CategoryContext";
+import TransactionContext from "../context/Transaction/TransactionContext";
+import CurrencyContext from "../context/Currency/CurrencyContext";
+import BudgetContext from "../context/Budget/BudgetContext";
+import AlertContext from "../context/Alert/AlertContext";
+
 import "./SignIn.css";
 
 function LoginForm() {
+  const loginContext = useContext(LoginContext);
+  const accountContext = useContext(AccountContext);
+  const transactionContext = useContext(TransactionContext);
+  const categoryContext = useContext(CategoryContext);
+  const budgetContext = useContext(BudgetContext);
+  const currencyContext = useContext(CurrencyContext);
+  const alertContext = useContext(AlertContext);
+
   const dispatch = useDispatch();
   const { login } = bindActionCreators(authenticationHandle, dispatch);
 
@@ -34,9 +49,17 @@ function LoginForm() {
     if (json.status === "success") {
       localStorage.setItem("LedgeSessionToken", json.token);
       login(true);
+      loginContext.setUsername(credentials.username);
       console.log("success");
+      accountContext.getAccounts();
+      transactionContext.getTransactions();
+      categoryContext.getCategories();
+      currencyContext.getCurrencies();
+      budgetContext.getTotalSpent();
+      alertContext.getAlert("Log In Succesful!");
     } else {
       console.log("failure");
+      alertContext.getAlert("Invalid username or password", "danger");
     }
   };
 
@@ -76,6 +99,14 @@ function LoginForm() {
 }
 
 function SignUpForm() {
+  const loginContext = useContext(LoginContext);
+  const accountContext = useContext(AccountContext);
+  const transactionContext = useContext(TransactionContext);
+  const categoryContext = useContext(CategoryContext);
+  const budgetContext = useContext(BudgetContext);
+  const currencyContext = useContext(CurrencyContext);
+  const alertContext = useContext(AlertContext);
+
   const dispatch = useDispatch();
   const { login } = bindActionCreators(authenticationHandle, dispatch);
 
@@ -107,9 +138,20 @@ function SignUpForm() {
     if (json.status === "success") {
       localStorage.setItem("LedgeSessionToken", json.token);
       login(true);
+      loginContext.setUsername(credentials.username);
       console.log("success");
+      accountContext.getAccounts();
+      transactionContext.getTransactions();
+      categoryContext.getCategories();
+      budgetContext.getTotalSpent();
+      currencyContext.getCurrencies();
+      alertContext.getAlert("Account Created Succesfully! Signed In");
     } else {
       console.log("failure");
+      alertContext.getAlert(
+        "Could not Sign Up, Sign up Details Invalid",
+        "danger"
+      );
     }
   };
 

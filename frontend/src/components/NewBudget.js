@@ -4,9 +4,11 @@ import { Button, CloseButton, Form } from "react-bootstrap";
 import "./Popup.css";
 
 import AccountContext from "../context/Account/AccountContext";
+import BudgetContext from "../context/Budget/BudgetContext";
 
 function NewBudget(props) {
   const accountContext = useContext(AccountContext);
+  const budgetContext = useContext(BudgetContext);
 
   const [newBudget, setNewBudget] = useState({
     budget_name: "",
@@ -44,6 +46,8 @@ function NewBudget(props) {
     if (json.status === "success") {
       console.log(json);
       props.newBudgetFormTrigger(false);
+      budgetContext.setBudget({budgetName: newBudget.budget_name})
+      budgetContext.getTotalSpent()
       console.log("success");
     } else {
       console.log("failure");

@@ -7,12 +7,11 @@ import { authenticationHandle } from "./state";
 import { IconContext } from 'react-icons/lib';
 import { MdOutlineCategory } from "react-icons/md";
 import { IoIosCash } from "react-icons/io";
-import { HiCurrencyRupee } from "react-icons/hi";
 import { AiOutlineLogin } from "react-icons/ai";
 
 import AddCategory from './AddCategory';
 import NewBudget from './NewBudget';
-import './SideBar.css'
+import './SideBar.css';
 import { login } from './state/actions';
 
 
@@ -38,10 +37,10 @@ function SideBar() {
           </i>
           <NewBudget newBudgetTrigger={ newBudget }
             newBudgetFormTrigger={newBudgetForm} />
-          {/* <i className="sidebar-item">
-            <HiCurrencyRupee />
-          </i> */}
-          <i className="sidebar-item" onClick={()=>login(false)}>
+          <i className="sidebar-item" onClick={() => {
+            localStorage.removeItem("LedgeSessionToken");
+            login(false);
+          }}>
             <AiOutlineLogin />
           </i>
         </div>

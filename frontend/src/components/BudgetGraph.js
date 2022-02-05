@@ -4,13 +4,14 @@ import { Group } from "@visx/group";
 import { Text } from "@visx/text";
 import { withScreenSize } from "@visx/responsive";
 
-const budgetData = [
-  { marker: "Available", amount: 600, color: "#62F163" },
-  { marker: "Spent", amount: 400, color: "#FE0002" },
-];
 
 
-function BudgetGraph() {
+function BudgetGraph(props) {
+  const budgetData = [
+    { marker: "Available", amount: 100, color: "#62F163" },
+    { marker: "Spent", amount: props.spent, color: "#FE0002" },
+  ];
+
   const width = 60;
   const half = width / 2;
   const [active, setActive] = useState(null);
@@ -23,7 +24,7 @@ function BudgetGraph() {
             pieValue={(data) => data.amount}
             outerRadius={half}
             innerRadius={({ data }) => {
-              const size = active && active.marker == data.marker ? 12 : 8;
+              const size = active && active.marker === data.marker ? 12 : 8;
               return half - size;
             }}
           >
@@ -44,7 +45,7 @@ function BudgetGraph() {
           </Pie>
           <>
             <Text textAnchor="middle" verticalAnchor="middle" fill="#62F163">
-              {"60%"}
+              {props.spent+"%"}
             </Text>
           </>
         </Group>

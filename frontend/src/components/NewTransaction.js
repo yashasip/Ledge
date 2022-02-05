@@ -17,7 +17,7 @@ function NewTransaction() {
         name="Add Transaction"
         onClick={() => openTransactionForm(true)}
       >
-        +
+        + New Transaction 
       </Button>
       <NewTransactionForm
         newTransactionTrigger={newTransaction}

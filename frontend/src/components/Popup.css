@@ -57,7 +57,7 @@
 .amount-details{
     display: grid;
     column-gap: 1rem;
-    grid-template-columns: 1fr 2fr;
+    /* grid-template-columns: 1fr 2fr; */
 }
 
 .date-time{

@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
 import "./Header.css";
 import { BiUser } from "react-icons/bi";
+import LoginContext from "../context/Login/LoginContext";
 
 export default function Header() {
-  const [user, setUser] = useState({ userName: "Alex", userPhoto: null });
+  const loginContext = useContext(LoginContext);
 
   return (
     <nav className="navbar">
       <div className="nav-brand">Ledge</div>
       <div className="nav-user">
-        {user.userName}
+        {loginContext.username}
         <BiUser className='user-image'/>
       </div>
     </nav>

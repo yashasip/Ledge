@@ -83,7 +83,7 @@ def get_all_transactions_data(user_id):
             MTCA."TransactionID" = T."TransactionID" AND
             MTCA."CategoryID" = CAT."CategoryID" AND
             MAUC."CurrencyID" = CUR."CurrencyID"
-            ORDER BY T."TransactionID";'''
+            ORDER BY T."TransactionID" DESC;'''
         )
         transactions = cursor.fetchall()
         cursor.close()

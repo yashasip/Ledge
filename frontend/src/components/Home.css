@@ -1,4 +1,5 @@
 .home-grid{
+    min-height: 1vh;
     display: grid;
     position: relative;
     padding: 2rem;

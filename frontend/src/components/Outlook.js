@@ -3,12 +3,12 @@ import { Card } from "react-bootstrap";
 import { useState,useEffect } from "react";
 
 import BudgetGraph from "./BudgetGraph";
-import TrackGraph from "./TrackGraph";
 
 import "./Outlook.css";
 
 import moneyLogo from "./wallet-logo.png";
 import AccountContext from "../context/Account/AccountContext";
+import BudgetContext from "../context/Budget/BudgetContext";
 
 function Outlook() {
   return (
@@ -63,10 +63,8 @@ export function BalanceCard() {
 }
 
 export function Budget() {
-  const [Budget, setBalance] = useState({
-    budgetName: "Weekly",
-    budget: "900",
-  });
+  const budgetContext = useContext(BudgetContext)
+
   return (
     <div>
       <Card>
@@ -75,11 +73,11 @@ export function Budget() {
             <Card.Title>Budget</Card.Title>
             <Card.Subtitle className="budget-name">
               <div className = 'indicator' ></div>
-               {' ' +Budget.budgetName}
+               {' ' +budgetContext.budget.budgetName}
             </Card.Subtitle>
           </div>
           <div className="budget-graph-grid">
-            <BudgetGraph />
+            <BudgetGraph spent={budgetContext.budget.budgetSpent ? budgetContext.budget.budgetSpent : 0} />
           </div>
         </Card.Body>
       </Card>

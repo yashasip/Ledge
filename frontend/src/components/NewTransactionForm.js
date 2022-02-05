@@ -5,16 +5,18 @@ import "./Popup.css";
 import AccountContext from "../context/Account/AccountContext";
 import CategoryContext from "../context/Category/CategoryContext";
 import TransactionContext from "../context/Transaction/TransactionContext";
+import BudgetContext from "../context/Budget/BudgetContext";
 
 function NewTransactionForm(props) {
   const accountContext = useContext(AccountContext);
   const categoryContext = useContext(CategoryContext);
   const transactionContext = useContext(TransactionContext);
+  const budgetContext = useContext(BudgetContext);
 
   const [transactionData, setTransactionData] = useState({
     account_name: "",
     type: "Income",
-    currency_code: "INR",
+    // currency_code: "INR",
     amount: 0,
     category_name: "",
     transaction_date: new Date().toISOString().slice(0, 10),
@@ -37,7 +39,7 @@ function NewTransactionForm(props) {
         body: JSON.stringify({
           account_name: transactionData.account_name,
           type: transactionData.type,
-          currency_code: transactionData.currency_code,
+          // currency_code: transactionData.currency_code,
           amount: transactionData.amount,
           category_name: transactionData.category_name,
           transaction_date: transactionData.transaction_date + ' ' +transactionData.transaction_time,
@@ -54,6 +56,7 @@ function NewTransactionForm(props) {
       accountContext.getAccounts();
       console.log("success");
       props.openTransactionFormTrigger(false);
+      budgetContext.getTotalSpent()
     } else {
       console.log("failure");
     }
@@ -96,14 +99,14 @@ function NewTransactionForm(props) {
             </Form.Select>
           </Form.Group>
           <div className="amount-details">
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
               <Form.Label>Currency</Form.Label>
               <Form.Select name="currency_code" onChange={onChange}>
                 <option value="INR">INR ₹</option>
                 <option value="USD">USD $</option>
                 <option value="EUR">EUR €</option>
               </Form.Select>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group className="mb-3">
               <Form.Label>Amount</Form.Label>
               <Form.Control
