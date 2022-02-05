@@ -10,8 +10,12 @@ from Mappings.models import CategoryUserMapping
 @permission_classes((IsAuthenticated,))
 def add_new_category(request):
     #checks
-
     data = {}
+    if len(request.data['category_name']) < 3:
+        data['message'] = 'Could not add category, category name should contain atleast 3 characters'
+        data['status'] = 'failure'
+        return Response(data)
+
     user = request.user # gets user id
     serializer = CategorySerializer(data=request.data)
 
@@ -23,6 +27,7 @@ def add_new_category(request):
         data['message'] = 'Category Added'
         data['status'] = 'success'
     else:
+        data['message'] = 'Could not add Category, Invalid data'
         data['status'] = 'failure'
 
     return Response(data)

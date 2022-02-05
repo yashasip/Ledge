@@ -4,9 +4,11 @@ import { Button, CloseButton, Form } from "react-bootstrap";
 import "./Popup.css";
 
 import AccountContext from "../context/Account/AccountContext";
+import AlertContext from "../context/Alert/AlertContext";
 
 const NewAccountForm = (props)=> {
   const accountContext = useContext(AccountContext);
+  const alertContext = useContext(AlertContext);
 
   const [newAccount, setNewAccount] = useState({
     account_name: "",
@@ -40,7 +42,10 @@ const NewAccountForm = (props)=> {
         accountContext.getAccounts()
         props.openFormTrigger(false);
         console.log("success");
+        alertContext.getAlert(json.message);
       } else {
+        props.openFormTrigger(false);
+        alertContext.getAlert(json.message, "danger");
         console.log("failure");
       }
     };

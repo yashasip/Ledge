@@ -5,10 +5,12 @@ import "./Popup.css";
 
 import AccountContext from "../context/Account/AccountContext";
 import BudgetContext from "../context/Budget/BudgetContext";
+import AlertContext from "../context/Alert/AlertContext";
 
 function NewBudget(props) {
   const accountContext = useContext(AccountContext);
   const budgetContext = useContext(BudgetContext);
+  const alertContext = useContext(AlertContext);
 
   const [newBudget, setNewBudget] = useState({
     budget_name: "",
@@ -46,10 +48,14 @@ function NewBudget(props) {
     if (json.status === "success") {
       console.log(json);
       props.newBudgetFormTrigger(false);
-      budgetContext.setBudget({budgetName: newBudget.budget_name})
+      budgetContext.setBudget({ budgetName: newBudget.budget_name })
       budgetContext.getTotalSpent()
+      props.newBudgetFormTrigger(false);
+      alertContext.getAlert(json.message);
       console.log("success");
     } else {
+      props.newBudgetFormTrigger(false);
+      alertContext.getAlert(json.message, "danger");
       console.log("failure");
     }
   };

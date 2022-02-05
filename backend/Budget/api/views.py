@@ -16,8 +16,25 @@ from Account.models import Account
 @permission_classes((IsAuthenticated,))
 def add_new_budget(request):
     #checks
-
     data = {}
+    if len(request.data['budget_name']) < 3:
+        data['message'] = 'Could not add budget, budget name should contain atleast 3 characters'
+        data['status'] = 'failure'
+        return Response(data)
+    elif len(request.data['account_name']) == 0:
+        data['message'] = 'Choose an account'
+        data['status'] = 'failure'
+        return Response(data)
+    elif int(request.data['budget_amount']) == 0:
+        data["message"] = 'Budget amount cannot be 0'
+        data["status"] = "failure"
+        return Response(data)
+    elif int(request.data['budget_amount']) < 0:
+        data["message"] = 'Budget amount should be greater than 0'
+        data["status"] = "failure"
+        return Response(data)
+
+
     user = request.user
     serializer = BudgetSerializer(data=request.data)
 
@@ -30,6 +47,7 @@ def add_new_budget(request):
         data["message"] = "Budget Added"
         data["status"] = "success"
     else:
+        data["message"] = "Could not add budget, Entered invalid data"
         data["status"] = "failure"
     return Response(data)
 

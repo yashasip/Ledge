@@ -4,9 +4,11 @@ import { Button, CloseButton, Form } from "react-bootstrap";
 import "./Popup.css";
 
 import CategoryContext from "../context/Category/CategoryContext";
+import AlertContext from "../context/Alert/AlertContext";
 
 function AddCategory(props) {
   const categoryContext = useContext(CategoryContext);
+  const alertContext = useContext(AlertContext);
   
   const [categoryData, setCategoryData] = useState({
     category_name: "",
@@ -63,8 +65,11 @@ function AddCategory(props) {
       console.log("success");
       categoryContext.getCategories();
       props.addCategoryFormTrigger(false);
-      } else {
-        console.log("failure");
+      alertContext.getAlert(json.message);
+    } else {
+      console.log("failure");
+      props.addCategoryFormTrigger(false);
+      alertContext.getAlert(json.message, "danger");
       }
   }
 

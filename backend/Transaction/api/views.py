@@ -17,8 +17,26 @@ from Mappings.models import TransactionCategoryAccountMapping
 @permission_classes((IsAuthenticated,))
 def add_new_transaction(request):
     # checks 
-
     data = {}
+    if len(request.data['account_name']) == 0:
+        data["message"] = 'Could not add transaction, choose an Account'
+        data["status"] = "failure"
+        return Response(data)
+    elif len(request.data['category_name']) == 0:
+        data["message"] = 'Could not add transaction, choose a Category'
+        data["status"] = "failure"
+        return Response(data)
+    elif int(request.data['amount']) == 0:
+        data["message"] = 'Transaction amount cannot be 0'
+        data["status"] = "failure"
+        return Response(data)
+    elif int(request.data['amount']) < 0:
+        data["message"] = 'Transaction amount should be greater than 0'
+        data["status"] = "failure"
+        return Response(data)
+
+
+
     user = request.user  # gets user id
     serializer = TransactionSerializer(data=request.data)
 
@@ -34,6 +52,7 @@ def add_new_transaction(request):
         data["message"] = 'Transaction added'
         data["status"] = "success"
     else:
+        data["message"] = 'Could not add transaction, Invalid data given'
         data["status"] = "failure"
 
     return Response(data)

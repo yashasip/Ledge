@@ -6,12 +6,14 @@ import AccountContext from "../context/Account/AccountContext";
 import CategoryContext from "../context/Category/CategoryContext";
 import TransactionContext from "../context/Transaction/TransactionContext";
 import BudgetContext from "../context/Budget/BudgetContext";
+import AlertContext from "../context/Alert/AlertContext";
 
 function NewTransactionForm(props) {
   const accountContext = useContext(AccountContext);
   const categoryContext = useContext(CategoryContext);
   const transactionContext = useContext(TransactionContext);
   const budgetContext = useContext(BudgetContext);
+  const alertContext = useContext(AlertContext);
 
   const [transactionData, setTransactionData] = useState({
     account_name: "",
@@ -56,8 +58,11 @@ function NewTransactionForm(props) {
       accountContext.getAccounts();
       console.log("success");
       props.openTransactionFormTrigger(false);
+      alertContext.getAlert(json.message);
       budgetContext.getTotalSpent()
     } else {
+      alertContext.getAlert(json.message, "danger");
+      props.openTransactionFormTrigger(false);
       console.log("failure");
     }
   };

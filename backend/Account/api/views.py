@@ -18,6 +18,15 @@ def add_new_account(request):
     #checks
 
     data = {}
+    if len(request.data['account_name']) < 3:
+        data['message'] = 'Could not add Account, Account Name should contain atleast 3 characters'
+        data['status'] = 'failure'
+        return Response(data)
+    elif int(request.data['balance']) < 0:
+        data["message"] = 'Account Balance should be greater than 0'
+        data["status"] = "failure"
+        return Response(data)
+
     user = request.user # gets user id
     serializer = AccountSerializer(data=request.data)
 
@@ -28,9 +37,10 @@ def add_new_account(request):
         account_user_map = AccountUserCurrencyMapping(account_id= new_account, user_id=user, currency_id=currency)
         # check if account name unique for user
         account_user_map.save()
-        data['message'] = 'new account added'
+        data['message'] = 'Account Added'
         data['status'] = 'success'
     else:
+        data['message'] = 'Could not add Account'
         data['status'] = 'failure'
 
     return Response(data)
