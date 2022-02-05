@@ -18,6 +18,7 @@ def add_new_account(request):
     #checks
 
     data = {}
+    user = request.user # gets user id
     if len(request.data['account_name']) < 3:
         data['message'] = 'Could not add Account, Account Name should contain atleast 3 characters'
         data['status'] = 'failure'
@@ -26,8 +27,13 @@ def add_new_account(request):
         data["message"] = 'Account Balance should be greater than 0'
         data["status"] = "failure"
         return Response(data)
+    elif request.data['account_name'] in get_user_account_names(user.id):
+        data["message"] = 'Account already exists, Choose a different name'
+        data["status"] = "failure"
+        return Response(data)
 
-    user = request.user # gets user id
+
+    get_user_account_names(user.id)
     serializer = AccountSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -83,6 +89,19 @@ def get_user_accounts_data(user_id):
 
     return accounts_data
 
+def get_user_account_names(user_id):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            f'''SELECT A."AccountName"
+            FROM "Mappings_accountusercurrencymapping" MAUC, "Account_account" A
+            WHERE MAUC."UserID" = {user_id};'''
+        )
+        accounts = cursor.fetchall()
+        cursor.close()
+
+    account_names = [item[0] for item in accounts] # convert list of tuples to 1D list
+    return account_names;
+
 
 def get_currency_data(account_id):
     with connection.cursor() as cursor:
@@ -94,7 +113,7 @@ def get_currency_data(account_id):
         )
         currency = cursor.fetchone()
         cursor.close()
-
+        
     return currency;
 
 def get_currency_id(currency_code):

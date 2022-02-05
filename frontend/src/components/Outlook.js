@@ -77,7 +77,7 @@ export function Budget() {
             </Card.Subtitle>
           </div>
           <div className="budget-graph-grid">
-            <BudgetGraph spent={budgetContext.budget.budgetSpent ? budgetContext.budget.budgetSpent : 0} />
+            <BudgetGraph/>
           </div>
         </Card.Body>
       </Card>

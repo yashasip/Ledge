@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pie } from "@visx/shape";
 import { Group } from "@visx/group";
 import { Text } from "@visx/text";
 import { withScreenSize } from "@visx/responsive";
 
+import BudgetContext from "../context/Budget/BudgetContext";
 
 
-function BudgetGraph(props) {
+
+function BudgetGraph() {
+  const budgetContext = useContext(BudgetContext);
   const budgetData = [
-    { marker: "Available", amount: 100, color: "#62F163" },
-    { marker: "Spent", amount: props.spent, color: "#FE0002" },
+    { marker: "Available", amount: budgetContext.budget.budgetAmount - budgetContext.budget.budgetSpent, color: "#62F163" },
+    { marker: "Spent", amount: budgetContext.budget.budgetSpent, color: "#FE0002" },
   ];
 
   const width = 60;
@@ -44,8 +47,10 @@ function BudgetGraph(props) {
             }}
           </Pie>
           <>
-            <Text textAnchor="middle" verticalAnchor="middle" fill="#62F163">
-              {props.spent+"%"}
+            <Text textAnchor="middle" verticalAnchor="middle" fill={budgetContext.budget.budgetAmount <= budgetContext.budget.budgetSpent ? '#FE0002' : "#62F163"}>
+              {Math.floor(budgetContext.budget.budgetSpent /
+                budgetContext.budget.budgetAmount * 100) +
+                "%"}
             </Text>
           </>
         </Group>

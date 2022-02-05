@@ -55,7 +55,7 @@ function LoginForm() {
       transactionContext.getTransactions();
       categoryContext.getCategories();
       currencyContext.getCurrencies();
-      budgetContext.getTotalSpent();
+      budgetContext.getBudgetData();
       alertContext.getAlert("Log In Succesful!");
     } else {
       console.log("failure");
@@ -143,7 +143,7 @@ function SignUpForm() {
       accountContext.getAccounts();
       transactionContext.getTransactions();
       categoryContext.getCategories();
-      budgetContext.getTotalSpent();
+      budgetContext.getBudgetData();
       currencyContext.getCurrencies();
       alertContext.getAlert("Account Created Succesfully! Signed In");
     } else {

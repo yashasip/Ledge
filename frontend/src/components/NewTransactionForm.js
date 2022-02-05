@@ -59,7 +59,7 @@ function NewTransactionForm(props) {
       console.log("success");
       props.openTransactionFormTrigger(false);
       alertContext.getAlert(json.message);
-      budgetContext.getTotalSpent()
+      budgetContext.getBudgetData()
     } else {
       alertContext.getAlert(json.message, "danger");
       props.openTransactionFormTrigger(false);

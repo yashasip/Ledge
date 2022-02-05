@@ -48,16 +48,14 @@ function NewBudget(props) {
     if (json.status === "success") {
       console.log(json);
       props.newBudgetFormTrigger(false);
-      budgetContext.setBudget({ budgetName: newBudget.budget_name })
-      budgetContext.getTotalSpent()
-      props.newBudgetFormTrigger(false);
+      budgetContext.getBudgetData()
       alertContext.getAlert(json.message);
       console.log("success");
     } else {
-      props.newBudgetFormTrigger(false);
       alertContext.getAlert(json.message, "danger");
       console.log("failure");
     }
+    props.newBudgetFormTrigger(false);
   };
 
   const onChange = (e) => {

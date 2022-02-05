@@ -2,9 +2,9 @@ import { useState } from "react";
 import BudgetContext from "./BudgetContext";
 
 const BudgetState = (props) => {
-  const [budget, setBudget] = useState({ budgetName: "No Budget", budgetSpent: 0 });
+  const [budget, setBudget] = useState({ budgetName: "No Budget", budgetSpent: 0, budgetAmount: 0 });
 
-  const getTotalSpent = async () => {
+  const getBudgetData = async () => {
     console.log("start");
     const response = await fetch("http://127.0.0.1:8000/api/Budget/get_spent", {
       method: "GET",
@@ -16,7 +16,7 @@ const BudgetState = (props) => {
     const json = await response.json();
     if (json.status === "success") {
       console.log(json)
-      setBudget({ budgetSpent: json.spent })
+      setBudget({ budgetName: json.budget_name, budgetSpent: json.spent, budgetAmount: json.budget_amount })
       console.log("success");
     } else {
       console.log("failure");
@@ -24,7 +24,7 @@ const BudgetState = (props) => {
   };
 
   return (
-    <BudgetContext.Provider value={{ budget, getTotalSpent, setBudget  }}>
+    <BudgetContext.Provider value={{ budget, getBudgetData  }}>
       {props.children}
     </BudgetContext.Provider>
   );

@@ -16,7 +16,7 @@ const AlertState = (props) => {
       <AlertContext.Provider value={{ alert, getAlert, setAlert }}>
           {
         alert.show?
-                  (<Alert variant={alert.variant}>{ alert.message}</Alert>) : null
+                  (<Alert id="alert"  variant={alert.variant}>{ alert.message}</Alert>) : null
           }
       {props.children}
     </AlertContext.Provider>

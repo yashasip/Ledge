@@ -58,12 +58,15 @@ def add_new_budget(request):
     ]
 )
 @permission_classes((IsAuthenticated,))
-def get_budget_amount_spent_view(request):
+def get_latest_budget_view(request):
     data = {}
     user = request.user
 
     if user:
-        data['spent'] = get_budget_amount_spent(user.id)
+        data = get_latest_budget_data(user.id)
+        if not data:
+            data["status"] = "failure"
+            return Response(data)
         data["message"] = "Budget Spent Money Received"
         data["status"] = "success"
     else:
@@ -86,34 +89,38 @@ def get_account_id(user_id, account_name):
         return account_id[0]
     return account_id
 
-def get_budget_amount_spent(user_id):
+def get_latest_budget_data(user_id):
     with connection.cursor() as cursor:
         cursor.execute(
-            f'''SELECT B."StartDate", B."EndDate", B."Amount", MBA."AccountID"
+            f'''SELECT B."BudgetName",B."StartDate", B."EndDate", B."Amount", MBA."AccountID"
             FROM "Mappings_accountusercurrencymapping" MAUC,"Mappings_budgetaccountmapping" MBA, "Budget_budget" B
-            WHERE MAUC."UserID" = {user_id} AND MAUC."AccountID" = MBA."AccountID" AND MBA."BudgetID" = B."BudgetID"
+            WHERE MAUC."UserID" = 37 AND MAUC."AccountID" = MBA."AccountID" AND MBA."BudgetID" = B."BudgetID"
             ORDER BY B."BudgetID" DESC;''')
         data = cursor.fetchone()
         cursor.close()
+    
+    if not data:
+        return {}
 
     budget_data = {}
-    budget_data['start_date'] = data[0]
-    budget_data['end_date'] = data[1]
-    budget_data['amount'] = data[2]
-    budget_data['account_id'] = data[3]
+    budget_data['budget_name'] = data[0]
+    budget_data['start_date'] = data[1]
+    budget_data['end_date'] = data[2]
+    budget_data['budget_amount'] = data[3]
+    budget_data['account_id'] = data[4]
+
 
     with connection.cursor() as cursor:
         cursor.execute(
             f'''SELECT SUM(T."Amount")
             FROM "Mappings_transactioncategoryaccountmapping" MTCA, 
-            "Mappings_accountusercurrencymapping" MAUC, 
             "Transaction_transaction" T
-            WHERE MTCA."AccountID" = {budget_data['account_id']} AND 
-            MTCA."TransactionID" = T."TransactionID" AND
-            T."Type" = 'Expense'
-            AND T."TransactionDate" >= '{budget_data['start_date']}' AND 
-            T."TransactionDate" <='{budget_data['end_date']}';''')
+            WHERE
+            MTCA."AccountID" = '{budget_data['account_id']}' AND 
+            MTCA."TransactionID" = T."TransactionID" AND T."Type" = 'Expense'
+            AND T."TransactionDate" >= '{budget_data['start_date']}' AND T."TransactionDate" <='{budget_data['end_date']}';''')
         spent = cursor.fetchone()[0]
         cursor.close()
-
-    return (spent//budget_data['amount']) * 100
+    
+    budget_data['spent'] = spent
+    return budget_data

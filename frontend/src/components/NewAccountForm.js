@@ -40,14 +40,20 @@ const NewAccountForm = (props)=> {
       if (json.status === "success") {
         console.log(json);
         accountContext.getAccounts()
-        props.openFormTrigger(false);
-        console.log("success");
+        console.log("success1");
         alertContext.getAlert(json.message);
       } else {
-        props.openFormTrigger(false);
         alertContext.getAlert(json.message, "danger");
         console.log("failure");
       }
+      setNewAccount({
+        account_name: "",
+        account_type: "",
+        currency: "INR ₹",
+        balance: 0,
+      });
+      console.log(newAccount)
+      props.openFormTrigger(false);
     };
     
   const onChange = (e) => {
