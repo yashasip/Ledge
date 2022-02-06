@@ -66,11 +66,17 @@
     align-items: center;
 }
 
-.indicator{
+.indicator-green{
     height: 1em;
     width: 1em;
     border-radius: 0.25em;
     background-color: #62F163;
+}
+.indicator-red{
+    height: 1em;
+    width: 1em;
+    border-radius: 0.25em;
+    background-color: #FE0002;
 }
 
 .budget-graph-grid{

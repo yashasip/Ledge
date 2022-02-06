@@ -59,12 +59,23 @@ function NewTransactionForm(props) {
       console.log("success");
       props.openTransactionFormTrigger(false);
       alertContext.getAlert(json.message);
-      budgetContext.getBudgetData()
+      budgetContext.getBudgetData();
     } else {
       alertContext.getAlert(json.message, "danger");
       props.openTransactionFormTrigger(false);
       console.log("failure");
     }
+      setTransactionData({
+      account_name: "",
+      type: "Income",
+      // currency_code: "INR",
+      amount: 0,
+      category_name: "",
+      transaction_date: new Date().toISOString().slice(0, 10),
+      transaction_time: new Date().toLocaleTimeString("en-GB"),
+      transaction_party: "",
+      description: "",
+    })
   };
 
   const onChange = (e) => {

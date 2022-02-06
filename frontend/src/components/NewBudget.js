@@ -47,8 +47,7 @@ function NewBudget(props) {
     const json = await response.json();
     if (json.status === "success") {
       console.log(json);
-      props.newBudgetFormTrigger(false);
-      budgetContext.getBudgetData()
+      budgetContext.getBudgetData();
       alertContext.getAlert(json.message);
       console.log("success");
     } else {
@@ -56,6 +55,16 @@ function NewBudget(props) {
       console.log("failure");
     }
     props.newBudgetFormTrigger(false);
+    setNewBudget({
+      budget_name: "",
+      budget_label: "",
+      account_name: "",
+      start_date: new Date().toISOString().slice(0, 10),
+      end_date: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10),
+      budget_amount: 0,
+    });
   };
 
   const onChange = (e) => {

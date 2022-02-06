@@ -70,7 +70,13 @@ function AddCategory(props) {
       console.log("failure");
       props.addCategoryFormTrigger(false);
       alertContext.getAlert(json.message, "danger");
-      }
+    }
+    setCategoryData({
+      category_name: "",
+      category_type: "",
+      color: "#ffffff",
+      description: "",
+    });
   }
 
   const onChange = (e) => {
@@ -126,11 +132,12 @@ function AddCategory(props) {
               </Form.Group>
             </div>
           </div>
+        </Form>
+        <div className="create-button-flex">
           <Button variant="outline-primary" className="create-button" onClick={submitCategoryForm}>
             Add Category
           </Button>
-        </Form>
-        <div className="create-button-flex"></div>
+        </div>
       </div>
     </div>
   ) : (

@@ -19,6 +19,7 @@ const BudgetState = (props) => {
       setBudget({ budgetName: json.budget_name, budgetSpent: json.spent, budgetAmount: json.budget_amount })
       console.log("success");
     } else {
+      setBudget({ budgetName: "No Budget", budgetSpent: 0, budgetAmount: 0 });
       console.log("failure");
     }
   };

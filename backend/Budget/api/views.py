@@ -94,14 +94,15 @@ def get_latest_budget_data(user_id):
         cursor.execute(
             f'''SELECT B."BudgetName",B."StartDate", B."EndDate", B."Amount", MBA."AccountID"
             FROM "Mappings_accountusercurrencymapping" MAUC,"Mappings_budgetaccountmapping" MBA, "Budget_budget" B
-            WHERE MAUC."UserID" = 37 AND MAUC."AccountID" = MBA."AccountID" AND MBA."BudgetID" = B."BudgetID"
+            WHERE MAUC."UserID" = {user_id} AND MAUC."AccountID" = MBA."AccountID" AND MBA."BudgetID" = B."BudgetID"
             ORDER BY B."BudgetID" DESC;''')
         data = cursor.fetchone()
         cursor.close()
     
+    print(data)
     if not data:
         return {}
-
+    print(data)
     budget_data = {}
     budget_data['budget_name'] = data[0]
     budget_data['start_date'] = data[1]

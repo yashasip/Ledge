@@ -72,12 +72,19 @@ export function Budget() {
           <div className="budget-header">
             <Card.Title>Budget</Card.Title>
             <Card.Subtitle className="budget-name">
-              <div className = 'indicator' ></div>
-               {' ' +budgetContext.budget.budgetName}
+              {budgetContext.budget.budgetAmount <=
+                budgetContext.budget.budgetSpent &&
+              budgetContext.budget.budgetAmount ? (
+                <div className="indicator-red" />
+              ) : (
+                <div className="indicator-green" />
+              )}
+
+              {" " + budgetContext.budget.budgetName}
             </Card.Subtitle>
           </div>
           <div className="budget-graph-grid">
-            <BudgetGraph/>
+            <BudgetGraph />
           </div>
         </Card.Body>
       </Card>
