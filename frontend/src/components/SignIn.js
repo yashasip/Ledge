@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { Card, Tabs, Tab, Form, Button, Fade } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { authenticationHandle } from "./state";
+// import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { authenticationHandle } from "./state";
 
 import LoginContext from "../context/Login/LoginContext";
 import AccountContext from "../context/Account/AccountContext";
@@ -12,6 +12,7 @@ import TransactionContext from "../context/Transaction/TransactionContext";
 import CurrencyContext from "../context/Currency/CurrencyContext";
 import BudgetContext from "../context/Budget/BudgetContext";
 import AlertContext from "../context/Alert/AlertContext";
+import AuthContext from "../context/Auth/AuthContext";
 
 import "./SignIn.css";
 
@@ -23,9 +24,10 @@ function LoginForm() {
   const budgetContext = useContext(BudgetContext);
   const currencyContext = useContext(CurrencyContext);
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
-  const dispatch = useDispatch();
-  const { login } = bindActionCreators(authenticationHandle, dispatch);
+  // const dispatch = useDispatch();
+  // const { login } = bindActionCreators(authenticationHandle, dispatch);
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -47,8 +49,9 @@ function LoginForm() {
     const json = await response.json();
     console.log(json);
     if (json.status === "success") {
-      localStorage.setItem("LedgeSessionToken", json.token);
-      login(true);
+      // localStorage.setItem("LedgeSessionToken", json.token);
+      // login(true);
+      authContext.login(json.token);
       loginContext.setUsername(credentials.username);
       console.log("success");
       accountContext.getAccounts();
@@ -106,9 +109,10 @@ function SignUpForm() {
   const budgetContext = useContext(BudgetContext);
   const currencyContext = useContext(CurrencyContext);
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
-  const dispatch = useDispatch();
-  const { login } = bindActionCreators(authenticationHandle, dispatch);
+  // const dispatch = useDispatch();
+  // const { login } = bindActionCreators(authenticationHandle, dispatch);
 
   const [credentials, setCredentials] = useState({
     userEmail: "",
@@ -136,8 +140,9 @@ function SignUpForm() {
     const json = await response.json();
     console.log(json);
     if (json.status === "success") {
-      localStorage.setItem("LedgeSessionToken", json.token);
-      login(true);
+      // localStorage.setItem("LedgeSessionToken", json.token);
+      // login(true);
+      authContext.login(json.token);
       loginContext.setUsername(credentials.username);
       console.log("success");
       accountContext.getAccounts();

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { authenticationHandle } from "./state";
+// import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { authenticationHandle } from "./state";
 
 import { IconContext } from "react-icons/lib";
 import { MdOutlineCategory } from "react-icons/md";
@@ -13,14 +13,16 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import AddCategory from "./AddCategory";
 import NewBudget from "./NewBudget";
 import "./SideBar.css";
-import { login } from "./state/actions";
+import AuthContext from "../context/Auth/AuthContext";
+// import { login } from "./state/actions";
 
 function SideBar() {
-  const dispatch = useDispatch();
-  const { login } = bindActionCreators(authenticationHandle, dispatch);
+  // const dispatch = useDispatch();
+  // const { login } = bindActionCreators(authenticationHandle, dispatch);
 
   const [newCategory, addCategoryForm] = useState(false);
   const [newBudget, newBudgetForm] = useState(false);
+  const authContext = useContext(AuthContext);
 
   return (
     <IconContext.Provider value={{ color: "#030F33", size: "3.5em" }}>
@@ -55,9 +57,7 @@ function SideBar() {
         >
           <i
             className="sidebar-item"
-            onClick={() => {
-              localStorage.removeItem("LedgeSessionToken");
-              login(false);
+            onClick={() => {authContext.logout()
             }}
           >
             <AiOutlineLogin />
